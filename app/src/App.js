@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import FormStuff from './FormStuff.js';
+import './api.js';
 
 class App extends Component {
   constructor(props){
@@ -49,7 +50,7 @@ updatePic(){
   render() {
     return (
       <div className="App">
-        <div className="App-header">  
+        <div className="App-header">
           <h1 className="App-title"> Quizlet <small> by JARS </small></h1>
         </div>
 
