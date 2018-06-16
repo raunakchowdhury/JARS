@@ -51,7 +51,10 @@ updatePic(){
           Text Only
           <br/>
     <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
-    Picture Only<p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
+  
+    Picture Only
+    <br/> <br/>
+    <p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
       <br/> <br/>
       <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
       <br/> <br/></div>);
@@ -61,7 +64,9 @@ updatePic(){
           Text Only
           <br/>
     <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
-    Picture Only<input type="file" id="picture" name="picture"
+    Picture Only
+    <br/> <br/>
+    <input type="file" id="picture" name="picture"
           accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
           </div>
 );
