@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import FormExample from './FormExample.js';
+import './api.js'
 
 class App extends Component {
   constructor(props){
@@ -25,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">  
+        <div className="App-header">
           <h1 className="App-title"> Quizlet <small> by JARS </small></h1>
         </div>
 
