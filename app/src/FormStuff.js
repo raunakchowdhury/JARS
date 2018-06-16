@@ -47,27 +47,10 @@ updatePic(){
 
   render() {
     if (this.state.isText){
-      return (<div> <input type="radio" name="season" value="winter" onChange={this.updateText}/>
-          Text Only
-          <br/>
-    <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
-  
-    Picture Only
-    <br/> <br/>
-    <p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
-      <br/> <br/>
-      <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
-      <br/> <br/></div>);
+      return (<div> </div>);
     }
     else{
-      return (<div> <input type="radio" name="season" value="winter" onChange={this.updateText}/>
-          Text Only
-          <br/>
-    <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
-    Picture Only
-    <br/> <br/>
-    <input type="file" id="picture" name="picture"
-          accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
+      return (<div> 
           </div>
 );
     }

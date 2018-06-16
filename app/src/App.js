@@ -8,8 +8,8 @@ class App extends Component {
   super(props);
 
   this.state = {
-    text: 'spanish',
-    subject: 'silla',
+    text: '',
+    subject: '',
     picture: '',
     isText: true,
     isPicture: false,
@@ -21,14 +21,17 @@ class App extends Component {
 
   this.updateText = this.updateText.bind(this);
   this.updatePic = this.updatePic.bind(this);
+  this.process = this.process.bind(this);
   }
 
   updateState(e) {
     this.setState({text: e.target.value});
+    console.log("changed text");
   }
 
   updateState2(e) {
     this.setState({subject: e.target.value});
+    console.log("changed text");
   }
 
   updateState3(e) {
@@ -56,7 +59,13 @@ updatePic(){
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
+
   });
+  console.log("ahhhhhhhhhh");
+  console.log(this);
+  console.log(this.state)
+  console.log(this.state.subject);
+  console.log(this.state.text);
   }
 
   render() {
@@ -67,7 +76,19 @@ updatePic(){
         </div>
 
         <form className="main-form" method="get">
-        <FormStuff/>
+        <input type="radio" name="season" value="winter" onChange={this.updateText}/>
+            Text Only
+            <br/>
+      <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
+
+      Picture Only
+      <br/> <br/>
+      <p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
+        <br/> <br/>
+        <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
+      <br/> <br/>
+      <input type="file" id="picture" name="picture"
+            accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
         </form>
         <br/><br/>
 
