@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import FormExample from './FormExample.js';
+import FormStuff from './FormStuff.js';
 
 class App extends Component {
   constructor(props){
@@ -10,10 +10,16 @@ class App extends Component {
     text: '',
     subject: '',
     picture: '',
+    isText: true,
+    isPicture: false,
   }
+
   this.updateState = this.updateState.bind(this);
   this.updateState2 = this.updateState2.bind(this);
   this.updateState3 = this.updateState3.bind(this);
+
+  this.updateText = this.updateText.bind(this);
+  this.updatePic = this.updatePic.bind(this);
   }
 
   updateState(e) {
@@ -28,6 +34,14 @@ class App extends Component {
     this.setState({picture: e.target.value});
   }
 
+updateText(){
+  this.setState({isText:true,isPicture:false});
+}
+
+updatePic(){
+  this.setState({isPicture:true,isText:false});
+}
+
   shout(){
     //fetch the image / text
   }
@@ -40,19 +54,7 @@ class App extends Component {
         </div>
 
         <form className="main-form" method="get">
-        <input type="radio" name="season" value="winter" checked/>
-          Text Only
-          <br/>
-    <input type="radio" name="season" value="spring"/>
-    Picture Only
-    <br/><br/>
-        Subject Here: <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
-      <br/> <br/>
-      Text Here: <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
-      <br/> <br/>
-      <input type="file" id="picture" name="picture"
-          accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
-
+        <FormStuff/>
         </form>
         <br/><br/>
 
