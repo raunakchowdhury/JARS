@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {form,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
-import ocrSpaceApi from 'ocr-space-api';
+import base64Img from 'base64-img';
+import axios from 'axios';
 
 var options =  { 
     apikey: 'fca5393dd988957',
@@ -23,12 +24,12 @@ class FormExample extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({ value: e.target.value});
   }
 
 
   fetchThing(){
-    return fetch('https://mywebsite.com/endpoint/', {
+    return fetch('https://api.ocr.space/parse/image', {
   method: 'POST',
   headers: {
     'Accept': 'application/json',
@@ -39,7 +40,7 @@ class FormExample extends React.Component {
     language: 'eng',
     filetype: 'PNG',
     isOverlayRequired: true,
-    base64Image: '',
+    file: 'imageFile.png',
   })
 }) 
   }

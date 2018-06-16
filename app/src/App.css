@@ -10,4 +10,18 @@
   color: whitesmoke;
 }
 
+.main-form{
+  margin: auto;
+  text-align: center;
+  color:mintcream;
+  background-color: #222;
+}
 
+.main-form button{
+  color: midnightblue;
+}
+
+.main-form input{
+  margin: auto;
+  color: black;
+}
