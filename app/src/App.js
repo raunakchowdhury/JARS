@@ -7,19 +7,29 @@ class App extends Component {
   super(props);
 
   this.state = {
-    pic: '',
-    subject: ''
+    text: '',
+    subject: '',
+    picture: '',
   }
   this.updateState = this.updateState.bind(this);
   this.updateState2 = this.updateState2.bind(this);
+  this.updateState3 = this.updateState3.bind(this);
   }
 
   updateState(e) {
-    this.setState({pic: e.target.value});
+    this.setState({text: e.target.value});
   }
 
   updateState2(e) {
     this.setState({subject: e.target.value});
+  }
+
+  updateState3(e) {
+    this.setState({picture: e.target.value});
+  }
+
+  shout(){
+    //fetch the image / text
   }
 
   render() {
@@ -30,15 +40,23 @@ class App extends Component {
         </div>
 
         <form className="main-form" method="get">
+        <input type="radio" name="season" value="winter" checked/>
+          Text Only
+          <br/>
+    <input type="radio" name="season" value="spring"/>
+    Picture Only
+    <br/><br/>
         Subject Here: <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
       <br/> <br/>
-      Text Here: <input type="text" name="getText" value={this.state.pic} onChange = {this.updateState}/>
+      Text Here: <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
       <br/> <br/>
-      <button type="submit">Submit</button>
-      {console.log(this.state.pic)}
-      {console.log(this.state.subject)}
-        </form>
+      <input type="file" id="picture" name="picture"
+          accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
 
+        </form>
+        <br/><br/>
+
+<button type="submit" onClick={this.shout}>Submit</button>
         </div>
     );
   }
