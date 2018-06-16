@@ -55,8 +55,10 @@ updatePic(){
     var request = require('request');
     const api_link = 'https://api.quizlet.com/2.0/search/sets?client_id=auZgDjSJ9E&whitespace=1';
     const link = '&q=' + this.state.subject + '&term=' + this.state.text;
+    const url = encodeURI(api_link + link);
+    console.log(url);
 
-    request(api_link + link, function (error, response, body) {
+    request(url, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
@@ -81,7 +83,7 @@ updatePic(){
       return (<div><br/> <br/>
         <input type="file" id="picture" name="picture"
               accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
-          
+
           <br/><br/></div>);
     }
 

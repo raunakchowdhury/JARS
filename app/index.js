@@ -4,5 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import FormStuff from './src/FormStuff.js';
+
+ReactDOM.render(<App><FormStuff/> </App>, document.getElementById('root'));
 registerServiceWorker();
