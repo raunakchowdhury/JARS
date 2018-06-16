@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import FormStuff from './FormStuff.js';
-import Api from './Api.js';
 
 class App extends Component {
   constructor(props){
@@ -22,6 +20,7 @@ class App extends Component {
   this.updateText = this.updateText.bind(this);
   this.updatePic = this.updatePic.bind(this);
   this.process = this.process.bind(this);
+  this.drawInputs = this.drawInputs.bind(this);
   }
 
   updateState(e) {
@@ -40,10 +39,12 @@ class App extends Component {
 
 updateText(){
   this.setState({isText:true,isPicture:false});
+  console.log("change text");
 }
 
 updatePic(){
   this.setState({isPicture:true,isText:false});
+  console.log("change pic");
 }
 
 //  shout(){
@@ -68,6 +69,23 @@ updatePic(){
   console.log(this.state.text);
   }
 
+  drawInputs(){
+    if (this.state.isText){
+      return (<div><br/> <br/>
+        <p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
+          <br/> <br/>
+          <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
+          <br/><br/></div>);
+    }
+    else {
+      return (<div><br/> <br/>
+        <input type="file" id="picture" name="picture"
+              accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
+          
+          <br/><br/></div>);
+    }
+
+  }
   render() {
     return (
       <div className="App">
@@ -82,16 +100,8 @@ updatePic(){
       <input type="radio" name="season" value="spring" onChange = {this.updatePic}/>
 
       Picture Only
-      <br/> <br/>
-      <p>Subject Here:</p> <input type="text" name="getSubject" value={this.state.subject} onChange = {this.updateState2}/>
-        <br/> <br/>
-        <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
-      <br/> <br/>
-      <input type="file" id="picture" name="picture"
-            accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
-        </form>
-        <br/><br/>
-
+      {this.drawInputs()}
+      </form>
 <button type="submit" onClick={this.process}>Submit</button>
         </div>
     );
