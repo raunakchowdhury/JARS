@@ -7,7 +7,6 @@ class App extends Component {
 
     this.state = {
       text: '',
-      picture: '',
       isText: true,
       isPicture: false,
       answers: [],
@@ -20,11 +19,6 @@ class App extends Component {
 
   updateState2= e => {
     this.setState({subject: e.target.value});
-  }
-
-  updateState3 = e => {
-    this.setState({picture: e.target.value});
-    console.log(e.target.value);
   }
 
   updateText = () => {
@@ -48,25 +42,32 @@ class App extends Component {
   //  Api.process('spanish','silla');
   //}
   process = () => {
+    if (this.state.isPicture){
+      this.formToOCR();
+    }
     document.getElementById('writeto').innerHTML = '';
     this.resetState();
     var theState = this.state;
-    var searchGoogle = function (query) {
+    var realThis = this;
+    var searchGoogle = query => {
       var api_key = "AIzaSyC0CzzGJTnT6-eG-4Bsb-9XUH_kyqjlvPA";
       var toSearch = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=009860273137102557130:i_4fb9pope0&q="+encodeURI(query);
       var request = require('request');
+      var allDefs = theState.answers;
       request(toSearch, function (error, response, body) {
-        var results = JSON.parse(body).items;
-        var allDefs = theState.answers;
+        var bigResults = JSON.parse(body);
+        if ("items" in bigResults){
+          var results = bigResults.items;
         var client_id = 'auZgDjSJ9E';
         for (var i = 0; i < results.length; i++) {
+          console.log(results);
           var aLink = results[i].link;
           var id = aLink.split("/")[3];
           const api_link = 'https://api.quizlet.com/2.0/sets/' + id + '?client_id='+ client_id +'&whitespace=1';
           request(api_link, function (error, response, body) {
             var allTerms = JSON.parse(body).terms;
 
-            if (allTerms.length !== 0) {
+            if (allTerms != undefined && allTerms.length != 0 ) {
               document.getElementById('writeto').innerHTML += '<ul>';
               for (var j = 0; j < allTerms.length; j++) {
                 //console.log(terms[j].term.toLowerCase() + ", " + query.toLowerCase());
@@ -79,22 +80,15 @@ class App extends Component {
               document.getElementById('writeto').innerHTML += '</ul>';
               theState.answers = allDefs;
             }
-            /*JSON.parse(body).terms.map(aterm=>{
-            if (aterm.term.toLowerCase()===theState.text.toLowerCase()){
-            console.log('aterm.definition');
-            theState.answers.push(aterm.definition);
-          }
-        })*/ // Print the HTML for the Google homepage.
       });
     }
-    if (allDefs.length == 0){
-      document.getElementById('writeto').innerHTML += '<li> Could not find any data related to your topic!</li>';
-    }
-    console.log(allDefs);
-
+  } else if (allDefs.length == 0){
+    document.getElementById('writeto').innerHTML += '<li> Could not find anything related to your topic</li>';
+  }
     return allDefs;
   });
 }
+console.log(this.state.text);
 searchGoogle(this.state.text);
 //this.setState({text:"",subject:"",answers=[]});
 /*var request = require('request');
@@ -145,7 +139,6 @@ drawInputs = () => {
         {this.drawInputs()}
         </form>
         <button type="submit" onClick={this.process}>Submit</button>
-        <button type="submit" onClick={this.formToOCR}>Submit</button>
         <br/><br/><br/>
         <div id="writeto"/>
         </div>
@@ -168,6 +161,7 @@ drawInputs = () => {
 
 
     formToOCR = () => {
+      var thisThing = this;
       var getBase64 = function(file) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -177,18 +171,23 @@ drawInputs = () => {
           //var file = (document.getElementById("picture").files[0]);//"http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
           //var img = getBase64(file); // prints the base64 string
           var img = reader.result;//.split(',')[1];
-          console.log(img);
           var key = "e920e09f4f88957";
           var end_url = "https://api.ocr.space/parse/image";
           var data = {
               apikey: key,
               base64Image : img,
           }
-          console.log(data);
           var request = require('request');
           request.post({url:end_url, form:data}, function (err, httpResponse, body) {
-                console.log(err, body, httpResponse, 'hello');
-                console.log('hi');
+            var results = JSON.parse(body);
+            if (results !== undefined && results.length !== 0){
+              thisThing.setState({text:JSON.parse(body).ParsedResults[0].ParsedText});
+              var txt = JSON.parse(body).ParsedResults[0].ParsedText;
+              console.log("txt:" + txt);
+
+              thisThing.setState({text: txt.trim().toLowerCase()});
+              console.log(thisThing);
+            }
       });
         };
         reader.onerror = function (error) {
