@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 //class Api extends Component{
 
+  function returnAns (id){
+      var client_id = 'auZgDjSJ9E';
+      const api_link = 'https://api.quizlet.com/2.0/search/sets/' + id + '?client_id='+ client_id +'&whitespace=1'; //potential problem
+  }
 
   function process(topic, text){
     var request = require('request');
@@ -11,8 +15,9 @@ import React, { Component } from 'react';
     request(api_link + link, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
+    console.log('body:', JSON.stringify(body.items)); // Print the HTML for the Google homepage.
   });
+  //url = response["items"]["link"]
   }
 //}
 
