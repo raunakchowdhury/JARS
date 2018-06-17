@@ -6,5 +6,5 @@ import registerServiceWorker from './registerServiceWorker';
 
 import FormStuff from './src/FormStuff.js';
 
-ReactDOM.render(<App><FormStuff/> </App>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();

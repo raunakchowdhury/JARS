@@ -10,6 +10,11 @@
   color: whitesmoke;
 }
 
+#writeto {
+  color: white;
+  text-align: left;
+}
+
 .main-form{
   margin: auto;
   text-align: center;
