@@ -62,38 +62,26 @@ class App extends Component {
           var results = bigResults.items;
         var client_id = 'auZgDjSJ9E';
         for (var i = 0; i < results.length; i++) {
-          var aLink = results[i].link;
+          console.log(results);
+          let aLink = results[i].link;
           var id = aLink.split("/")[3];
-          var doLink = [];
-          var theDefinitions = [];
           const api_link = 'https://api.quizlet.com/2.0/sets/' + id + '?client_id='+ client_id +'&whitespace=1';
           request(api_link, function (error, response, body) {
+            var urllink =JSON.parse(body).url;
             var allTerms = JSON.parse(body).terms;
             if (allTerms !== undefined && allTerms.length !== 0 ) {
+              document.getElementById('writeto').innerHTML += '<ul>';
               for (var j = 0; j < allTerms.length; j++) {
                 //console.log(terms[j].term.toLowerCase() + ", " + query.toLowerCase());
                 if (allTerms[j].term.toLowerCase().includes(query.toLowerCase())){
                   allDefs.push(allTerms[j].definition);
-                  theDefinitions.push(allTerms[j].definition);
-                  doLink.push(true);
-                }
-                else {
-                  theDefinitions.push('');
-                  doLink.push(false);
+                  document.getElementById('writeto').innerHTML += '<li>' + allTerms[j].definition + '</li>'+ '<a href="' + urllink + '">Link to Quizlet</a>';
                 }
               }
+              document.getElementById('writeto').innerHTML += '</ul>';
               theState.answers = allDefs;
             }
       });
-          document.getElementById('writeto').innerHTML += '<ul>';
-          for (var i=0; i<doLink.length; i++){
-            console.log(i);
-            if (doLink[i]){
-                document.getElementById('writeto').innerHTML += '<li>' + theDefinitions[i] + '</li>'+ '<a href="' + aLink + '">Link to Quizlet</a><br/>';
-            }
-          }
-           document.getElementById('writeto').innerHTML += '</ul>';
-          
     }
   } else if (allDefs.length === 0){
     document.getElementById('writeto').innerHTML += '<li> Could not find anything related to your topic</li>';
@@ -181,8 +169,6 @@ drawInputs = () => {
         console.log('Error: ', error);
       };
    }
-
-
   */
 
 
