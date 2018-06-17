@@ -110,6 +110,7 @@ searchGoogle(this.state.text);
 
 drawInputs = () => {
   if (this.state.isText){
+
     return (<div><br/> <br/>
       <p>Text Here:</p> <input type="text" name="getText" value={this.state.text} onChange = {this.updateState}/>
       <br/><br/></div>);
@@ -132,9 +133,16 @@ drawInputs = () => {
         
         <div className="App">
         <div className="App-header">
-        <h1 className="App-title"> Quizlet <small> by JARS </small></h1>
+        <h1 className="App-title"> Info Box :) <small> by JARS </small></h1>
         </div>
-        
+        <p>
+          For text option, type in the text, press submit, and wait for the answer(s) to appear.
+        </p>
+        <p>
+          For picture option, put in a clear picture option with text and press submit for the text of the picture to appear.
+          Then, press submit again after the text appears in the text box and wait for answer(s) to appear. 
+          Note: If the text does not appear, then there is no answer found for the certain input.
+        </p>
         <form className="main-form" id="main" method="get">
        
         <input type="radio" name="season" value="winter" onChange={this.updateText}/>
