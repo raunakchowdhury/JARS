@@ -22,10 +22,12 @@ class App extends Component {
   }
 
   updateText = () => {
+    {this.setState({text: ""})}
     this.setState({isText:true,isPicture:false});
   }
 
   updatePic = () => {
+    {this.setState({text: ""})}
     this.setState({isPicture:true,isText:false});
   }
 
@@ -67,7 +69,7 @@ class App extends Component {
           request(api_link, function (error, response, body) {
             var allTerms = JSON.parse(body).terms;
             
-            if (allTerms != undefined && allTerms.length != 0 ) {
+            if (allTerms !== undefined && allTerms.length !== 0 ) {
               document.getElementById('writeto').innerHTML += '<ul>';
               for (var j = 0; j < allTerms.length; j++) {
                 //console.log(terms[j].term.toLowerCase() + ", " + query.toLowerCase());
@@ -82,14 +84,16 @@ class App extends Component {
             }
       });
     }
-  } else if (allDefs.length == 0){
+  } else if (allDefs.length === 0){
     document.getElementById('writeto').innerHTML += '<li> Could not find anything related to your topic</li>';
   }
+   
     return allDefs;
   });
 }
 console.log(this.state.text);
 searchGoogle(this.state.text);
+
 //this.setState({text:"",subject:"",answers=[]});
 /*var request = require('request');
 const api_link = 'https://api.quizlet.com/2.0/search/sets?client_id=auZgDjSJ9E&whitespace=1';
@@ -112,6 +116,7 @@ drawInputs = () => {
     }
     else {
       return (<div><br/> <br/>
+        
         <input type="file" id="picture" name="picture"
         accept=".jpg, .jpeg, .png" value = {this.state.picture} onChange = {this.updateState3}/>
 
@@ -124,12 +129,14 @@ drawInputs = () => {
     render() {
 
       return (
+        
         <div className="App">
         <div className="App-header">
         <h1 className="App-title"> Quizlet <small> by JARS </small></h1>
         </div>
-
-        <form className="main-form" method="get">
+        
+        <form className="main-form" id="main" method="get">
+       
         <input type="radio" name="season" value="winter" onChange={this.updateText}/>
         Text Only
         <br/>
