@@ -50,7 +50,7 @@ class App extends Component {
     var theState = this.state;
     var realThis = this;
     var searchGoogle = query => {
-      var api_key = "AIzaSyC0CzzGJTnT6-eG-4Bsb-9XUH_kyqjlvPA";
+      var api_key = "AIzaSyCsY4sCP_IqRan8S8awofs16gSGyydAtg4";
       var toSearch = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=009860273137102557130:i_4fb9pope0&q="+encodeURI(query);
       var request = require('request');
       var allDefs = theState.answers;
@@ -66,7 +66,7 @@ class App extends Component {
           const api_link = 'https://api.quizlet.com/2.0/sets/' + id + '?client_id='+ client_id +'&whitespace=1';
           request(api_link, function (error, response, body) {
             var allTerms = JSON.parse(body).terms;
-
+            
             if (allTerms != undefined && allTerms.length != 0 ) {
               document.getElementById('writeto').innerHTML += '<ul>';
               for (var j = 0; j < allTerms.length; j++) {
