@@ -83,7 +83,6 @@ class App extends Component {
               document.getElementById('writeto').innerHTML += '</ul>';
               theState.answers = allDefs;
             }
-
             /*JSON.parse(body).terms.map(aterm=>{
             if (aterm.term.toLowerCase()===theState.text.toLowerCase()){
             console.log('aterm.definition');
@@ -91,6 +90,9 @@ class App extends Component {
           }
         })*/ // Print the HTML for the Google homepage.
       });
+    }
+    if (allDefs.length == 0){
+      document.getElementById('writeto').innerHTML += '<li> Could not find any data related to your topic!</li>';
     }
     console.log(allDefs);
 
