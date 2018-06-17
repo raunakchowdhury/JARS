@@ -52,7 +52,7 @@ class App extends Component {
     var theState = this.state;
     var realThis = this;
     var searchGoogle = query => {
-      var api_key = "AIzaSyCsY4sCP_IqRan8S8awofs16gSGyydAtg4";
+      var api_key = "AIzaSyBnUY5eUJkAcN43eBY3fxiTuKHLWHT8HHM";
       var toSearch = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=009860273137102557130:i_4fb9pope0&q="+encodeURI(query);
       var request = require('request');
       var allDefs = theState.answers;
