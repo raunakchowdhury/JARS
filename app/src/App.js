@@ -21,6 +21,7 @@ class App extends Component {
   this.updatePic = this.updatePic.bind(this);
   this.process = this.process.bind(this);
   this.drawInputs = this.drawInputs.bind(this);
+  this.formToOCR = this.formToOCR.bind(this);
   }
 
   updateState(e) {
@@ -35,6 +36,7 @@ class App extends Component {
 
   updateState3(e) {
     this.setState({picture: e.target.value});
+    console.log(e.target.value);
   }
 
 updateText(){
@@ -111,8 +113,23 @@ updatePic(){
       {this.drawInputs()}
       </form>
 <button type="submit" onClick={this.process}>Submit</button>
+<button type="submit" onClick={this.formToOCR}>Submit</button>
         </div>
     );
+  }
+
+  formToOCR() {
+      var img = "http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
+      var key = "e920e09f4f88957";
+      var end_url = "https://api.ocr.space/parse/image";
+      var data = {
+          apikey: key,
+          url: img
+      }
+      var request = require('request');
+      request.post({url:end_url, form:data}, function (err, httpResponse, body) {
+            console.log(err, body);
+        });
   }
 }
 
