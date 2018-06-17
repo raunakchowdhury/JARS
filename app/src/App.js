@@ -20,15 +20,11 @@ class App extends Component {
     this.updateText = this.updateText.bind(this);
     this.updatePic = this.updatePic.bind(this);
 
-<<<<<<< HEAD
   this.updateText = this.updateText.bind(this);
   this.updatePic = this.updatePic.bind(this);
   this.process = this.process.bind(this);
   this.drawInputs = this.drawInputs.bind(this);
   this.formToOCR = this.formToOCR.bind(this);
-=======
-    this.drawInputs = this.drawInputs.bind(this);
->>>>>>> 0a8dc3613803f5103c10b0672a7d6020e76a1403
   }
 
   updateState = e => {
