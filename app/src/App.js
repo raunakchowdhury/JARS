@@ -128,15 +128,6 @@ drawInputs = () => {
 
     }
 
-    drawAnswers = () =>{
-      var answer = this.state.answers;
-      console.log(typeof(answer));
-      console.log(answer);
-      for ( var i = 0; i < this.state.answers.length; i++) {
-        //console.log(answer[i]);
-      }
-      //document.write(<li> answer[i] </li>);
-    };
 
     render() {
 
@@ -163,19 +154,64 @@ drawInputs = () => {
       );
     }
 
-    formToOCR = () => {
-      var img = "http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
-      var key = "e920e09f4f88957";
-      var end_url = "https://api.ocr.space/parse/image";
-      var data = {
-        apikey: key,
-        url: img
+   /* getBase64(file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        console.log(reader.result);
       };
-      var request = require('request');
-      request.post({url:end_url, form:data}, function (err, httpResponse, body) {
-        console.log(err, body);
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+   }
+
+
+  */
+
+
+    formToOCR = () => {
+      var getBase64 = function(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          //console.log('hi'+reader.result);
+          //return reader.result.slice(',')[1];
+          //var file = (document.getElementById("picture").files[0]);//"http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
+          //var img = getBase64(file); // prints the base64 string
+          var img = reader.result;//.split(',')[1];
+          console.log(img);
+          var key = "e920e09f4f88957";
+          var end_url = "https://api.ocr.space/parse/image";
+          var data = {
+              apikey: key,
+              base64Image : img,
+          }
+          console.log(data);
+          var request = require('request');
+          request.post({url:end_url, form:data}, function (err, httpResponse, body) {
+                console.log(err, body, httpResponse, 'hello');
+                console.log('hi');
       });
-    }
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+     }
+     var file = (document.getElementById("picture").files[0]);//"http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
+     getBase64(file); // prints the base64 string
+
+        /*var file = (document.getElementById("picture").files[0]);//"http://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png";
+        var img = getBase64(file); // prints the base64 string
+        var key = "e920e09f4f88957";
+        var end_url = "https://api.ocr.space/parse/image";
+        var data = {
+            apikey: key,
+            base64Image : img
+        }
+        var request = require('request');
+        request.post({url:end_url, form:data}, function (err, httpResponse, body) {
+              console.log(err, body);
+    });*/
   }
 
   export default App;
