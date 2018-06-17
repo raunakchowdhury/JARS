@@ -56,28 +56,24 @@ class App extends Component {
       var toSearch = "https://www.googleapis.com/customsearch/v1?key=" + api_key + "&cx=009860273137102557130:i_4fb9pope0&q="+encodeURI(query);
       var request = require('request');
       request(toSearch, function (error, response, body) {
-        console.log(body);
         var results = JSON.parse(body).items;
-        //console.log(results);
         var allDefs = theState.answers;
         var client_id = 'auZgDjSJ9E';
         for (var i = 0; i < results.length; i++) {
           var aLink = results[i].link;
           var id = aLink.split("/")[3];
-          console.log(results);
-          console.log(results[i].link);
           const api_link = 'https://api.quizlet.com/2.0/sets/' + id + '?client_id='+ client_id +'&whitespace=1';
           request(api_link, function (error, response, body) {
-
-            var terms = JSON.parse(body).terms;
-            if (terms != undefined) {
+            var allTerms = JSON.parse(body).terms;
+            
+            if (allTerms.length !== 0) {
               document.getElementById('writeto').innerHTML += '<ul>';
-              for (var j = 0; j < terms.length; j++) {
+              for (var j = 0; j < allTerms.length; j++) {
                 //console.log(terms[j].term.toLowerCase() + ", " + query.toLowerCase());
-                if (terms[j].term.toLowerCase().includes(query.toLowerCase())){
-                  allDefs.push(terms[j].definition);
-                  console.log(terms[j].definition);
-                  document.getElementById('writeto').innerHTML += '<li>' + terms[j].definition + '</li>'+ '<a href="' + aLink + '">Link to Quizlet</a>';
+                if (allTerms[j].term.toLowerCase().includes(query.toLowerCase())){
+                  allDefs.push(allTerms[j].definition);
+                  console.log(allTerms[j].definition);
+                  document.getElementById('writeto').innerHTML += '<li>' + allTerms[j].definition + '</li>'+ '<a href="' + aLink + '">Link to Quizlet</a>';
                 }
               }
               document.getElementById('writeto').innerHTML += '</ul>';
@@ -92,8 +88,6 @@ class App extends Component {
         })*/ // Print the HTML for the Google homepage.
       });
     }
-    console.log(allDefs);
-
     return allDefs;
   });
 }
